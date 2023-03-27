@@ -9,6 +9,11 @@
             Console.WriteLine("\t\t  Number Guessing Game");
             Console.WriteLine("==========================================================\n");
 
+            // Generate Random number
+            Random targetNumber = new Random();
+            int target = targetNumber.Next(1,100);
+
+            
 
         }
     }
