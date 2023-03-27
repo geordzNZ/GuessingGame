@@ -21,6 +21,24 @@
                 string guessedNumberInput = Console.ReadLine();
                 int guessedNumber = Int32.Parse(guessedNumberInput);
 
+                if (guessedNumber == targetNumber)
+                {
+                    Console.WriteLine($"\n\n\tWINNER WINNER, YOU GUESSED { targetNumber } CORRECTLY!!!");
+                    Console.WriteLine("\n==========================================================\n");
+
+                    targetGuessed = true;
+                }
+                else
+                {
+                    if ((targetNumber - guessedNumber) >= 1)
+                    {
+                        Console.Write($"\n\tToo low   --> ");
+                    }
+                    else
+                    {
+                        Console.Write($"\n\tToo high  --> ");
+                    }
+                }
             }
 
         }
