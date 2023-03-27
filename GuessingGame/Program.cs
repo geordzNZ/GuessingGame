@@ -2,24 +2,27 @@
 {
     internal class Program
     {
-
+        const int MIN_TARGET = 0;
+        const int MAX_TARGET = 100;
+        const int ALLOWED_GUESSES = 15;
+        const int CLOSE_GUESS_DIFFERENCE = 5;
         static void Main(string[] args)
         {
             // Header section
             Console.WriteLine("\t\t\tWELCOME");
             Console.WriteLine("\t\t  Number Guessing Game");
+            Console.WriteLine($"\tPick a number between {MIN_TARGET} and {MAX_TARGET} in {ALLOWED_GUESSES} guesses");
             Console.WriteLine("==========================================================\n");
 
             // Generate Random number
             Random target = new Random();
-            int targetNumber = target.Next(1,100);
+            int targetNumber = target.Next(MIN_TARGET,MAX_TARGET + 1);
 
             // Game loop
             bool targetGuessed = false;
-            int allowedWrongGuesses = 5;
             int guessCounter = 0;
             
-            while (!targetGuessed && (guessCounter < allowedWrongGuesses))
+            while (!targetGuessed && (guessCounter < ALLOWED_GUESSES))
             {
                 Console.Write($"\tGuess a number: ");
                 string guessedNumberInput = Console.ReadLine();
@@ -33,7 +36,7 @@
                 else
                 {
                     bool closeGuess = false;
-                    if (Math.Abs(targetNumber - guessedNumber) <= 5)
+                    if (Math.Abs(targetNumber - guessedNumber) <= CLOSE_GUESS_DIFFERENCE)
                     {
                         closeGuess = true;
                     }
