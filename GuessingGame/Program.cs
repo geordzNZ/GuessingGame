@@ -11,7 +11,7 @@
             // Header section
             Console.WriteLine("\t\t\tWELCOME");
             Console.WriteLine("\t\t  Number Guessing Game");
-            Console.WriteLine($"\tPick a number between {MIN_TARGET} and {MAX_TARGET} in {ALLOWED_GUESSES} guesses");
+            Console.WriteLine($"\tPick an integer between {MIN_TARGET} and {MAX_TARGET} in {ALLOWED_GUESSES} guesses");
             Console.WriteLine("==========================================================\n");
 
             // Generate Random number
@@ -26,7 +26,15 @@
             {
                 Console.Write($"\n\tGuess a number: ");
                 string guessedNumberInput = Console.ReadLine();
-                int guessedNumber = Int32.Parse(guessedNumberInput);
+
+                // Validate user input
+                int guessedNumber;
+                bool guessedNumberValidation = int.TryParse(guessedNumberInput, out guessedNumber);
+                if ((guessedNumber < MIN_TARGET) || (guessedNumber > MAX_TARGET) || !guessedNumberValidation) {
+                    Console.WriteLine($"\tEnter an interger between {MIN_TARGET} and {MAX_TARGET} - Try again!");
+                    continue;
+                }
+
                 guessCounter++;
 
                 if (guessedNumber == targetNumber)
