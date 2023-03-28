@@ -22,7 +22,7 @@
             bool targetGuessed = false;
             int guessCounter = 0;
             
-            while (!targetGuessed && (guessCounter < ALLOWED_GUESSES))
+            while (guessCounter < ALLOWED_GUESSES)
             {
                 Console.Write($"\n\tGuess a number: ");
                 string guessedNumberInput = Console.ReadLine();
@@ -32,6 +32,7 @@
                 if (guessedNumber == targetNumber)
                 {
                     targetGuessed = true;
+                    break;
                 }
                 else
                 {
