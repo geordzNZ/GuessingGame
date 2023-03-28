@@ -35,7 +35,7 @@
                 }
                 else
                 {
-                    if ((targetNumber - guessedNumber) >= 1)
+                    if (targetNumber > guessedNumber)
                     {
                         Console.WriteLine($"\tTOO LOW ... ");
                     }
