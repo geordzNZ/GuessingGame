@@ -24,42 +24,29 @@
             
             while (!targetGuessed && (guessCounter < ALLOWED_GUESSES))
             {
-                Console.Write($"\tGuess a number: ");
+                Console.Write($"\n\tGuess a number: ");
                 string guessedNumberInput = Console.ReadLine();
                 int guessedNumber = Int32.Parse(guessedNumberInput);
+                guessCounter++;
 
                 if (guessedNumber == targetNumber)
                 {
-                    guessCounter++;
                     targetGuessed = true;
                 }
                 else
                 {
-                    bool closeGuess = false;
-                    if (Math.Abs(targetNumber - guessedNumber) <= CLOSE_GUESS_DIFFERENCE)
-                    {
-                        closeGuess = true;
-                    }
-
                     if ((targetNumber - guessedNumber) >= 1)
                     {
-                        Console.Write($"\n\tYour guess was TOO LOW ");
-                        if (closeGuess)
-                        {
-                            Console.Write($"but you are within 5 ");
-                        }
-                        Console.WriteLine("...");
-                        guessCounter++;
+                        Console.WriteLine($"\tTOO LOW ... ");
                     }
                     else
                     {
-                        Console.Write($"\n\tYour guess was TOO HIGH ");
-                        if (closeGuess)
-                        {
-                            Console.Write($"but you are within 5 ");
-                        }
-                        Console.WriteLine("...");
-                        guessCounter++;
+                        Console.WriteLine($"\tTOO HIGH ... ");
+                    }
+
+                    if (Math.Abs(targetNumber - guessedNumber) <= CLOSE_GUESS_DIFFERENCE)
+                    {
+                        Console.WriteLine($"\tThat was close, you are within {CLOSE_GUESS_DIFFERENCE}");
                     }
                 }
             }
