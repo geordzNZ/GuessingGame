@@ -8,71 +8,107 @@
         const int CLOSE_GUESS_DIFFERENCE = 5;
         static void Main(string[] args)
         {
-            // Header section
-            Console.WriteLine("\t\t\tWELCOME");
-            Console.WriteLine("\t\t  Number Guessing Game");
-            Console.WriteLine($"\tPick an integer between {MIN_TARGET} and {MAX_TARGET} in {ALLOWED_GUESSES} guesses");
-            Console.WriteLine("==========================================================\n");
+            int gamesPlayed = 0;
+            int gamesWon = 0;
+            bool playAgain = true;
 
-            // Generate Random number
-            Random target = new Random();
-            int targetNumber = target.Next(MIN_TARGET,MAX_TARGET + 1);
-
-            // Game loop
-            bool targetGuessed = false;
-            int guessCounter = 0;
-            
-            while (guessCounter < ALLOWED_GUESSES)
+            while (playAgain)
             {
-                Console.Write($"\n\tGuess a number: ");
-                string guessedNumberInput = Console.ReadLine();
+                // Header section
+                Console.Clear();
+                Console.WriteLine("\t\t\tWELCOME");
+                Console.WriteLine("\t\t  Number Guessing Game");
+                Console.WriteLine($"\tPick an integer between {MIN_TARGET} and {MAX_TARGET} in {ALLOWED_GUESSES} guesses");
 
-                // Validate user input
-                int guessedNumber;
-                bool guessedNumberValidation = int.TryParse(guessedNumberInput, out guessedNumber);
-                if ((guessedNumber < MIN_TARGET) || (guessedNumber > MAX_TARGET) || !guessedNumberValidation) {
-                    Console.WriteLine($"\tEnter an interger between {MIN_TARGET} and {MAX_TARGET} - Try again!");
-                    continue;
-                }
+                Console.WriteLine($"\t\tGames played: {gamesPlayed} ... Wins: {gamesWon}");
+                Console.WriteLine("==========================================================\n");
 
-                guessCounter++;
+                // Generate Random number
+                Random target = new Random();
+                int targetNumber = target.Next(MIN_TARGET, MAX_TARGET + 1);
 
-                if (guessedNumber == targetNumber)
+                // Game loop
+                bool targetGuessed = false;
+                int guessCounter = 0;
+                gamesPlayed++;
+
+                while (guessCounter < ALLOWED_GUESSES)
                 {
-                    targetGuessed = true;
-                    break;
-                }
-                else
-                {
-                    if (targetNumber > guessedNumber)
+                    Console.Write($"\n\tGuess a number: ");
+                    string guessedNumberInput = Console.ReadLine();
+
+                    // Validate user input
+                    int guessedNumber;
+                    bool guessedNumberValidation = int.TryParse(guessedNumberInput, out guessedNumber);
+                    if ((guessedNumber < MIN_TARGET) || (guessedNumber > MAX_TARGET) || !guessedNumberValidation)
                     {
-                        Console.WriteLine($"\tTOO LOW ... ");
+                        Console.WriteLine($"\t\tEnter an interger between {MIN_TARGET} and {MAX_TARGET} - Try again!");
+                        continue;
+                    }
+
+                    guessCounter++;
+
+                    if (guessedNumber == targetNumber)
+                    {
+                        targetGuessed = true;
+                        break;
                     }
                     else
                     {
-                        Console.WriteLine($"\tTOO HIGH ... ");
-                    }
+                        if (targetNumber > guessedNumber)
+                        {
+                            Console.WriteLine($"\t\tTOO LOW ... ");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t\tTOO HIGH ... ");
+                        }
 
-                    if (Math.Abs(targetNumber - guessedNumber) <= CLOSE_GUESS_DIFFERENCE)
-                    {
-                        Console.WriteLine($"\tThat was close, you are within {CLOSE_GUESS_DIFFERENCE}");
+                        if (Math.Abs(targetNumber - guessedNumber) <= CLOSE_GUESS_DIFFERENCE)
+                        {
+                            Console.WriteLine($"\t\tThat was close though, you are within {CLOSE_GUESS_DIFFERENCE}");
+                        }
                     }
                 }
-            }
 
-            if (targetGuessed)
-            {
-                Console.Write("\n\n\tWINNER WINNER!!!");
-                Console.Write($"\n\tYOU GUESSED {targetNumber} CORRECTLY");
-                Console.Write($"\n\tTAKING ONLY {guessCounter} GUESSES");
+                if (targetGuessed)
+                {
+                    Console.Write("\n\n\tWINNER WINNER!!!");
+                    Console.Write($"\n\tYOU GUESSED {targetNumber} CORRECTLY");
+                    Console.Write($"\n\tTAKING ONLY {guessCounter} GUESSES");
+                    gamesWon++;
+                }
+                else
+                {
+                    Console.Write("\n\n\tTOO MANY GUESSES!");
+                    Console.Write($"\n\tYOU GUESSED {guessCounter} INCORRECT TIMES");
+                    Console.Write($"\n\tTHE CORRECT NUMBER WAS {targetNumber}");
+                }
+                Console.WriteLine("\n==========================================================\n");
+
+                bool wrongPlayAgainInput = true;
+                string playAgainInput = "";
+                while (wrongPlayAgainInput)
+                {
+                    Console.Write($"\n\tDo you want to play again? (Y/N) ");
+                    playAgainInput = Console.ReadLine().ToUpper();
+
+                    //Validate playAgainInput
+                    if (playAgainInput != "Y" && playAgainInput != "N")
+                    {
+                        Console.WriteLine("\t\tPlease entery either Y / N");
+                        continue;
+                    }
+                    wrongPlayAgainInput = false;
+                }
+
+                if (playAgainInput == "N")
+                {
+                    playAgain = false;
+                }
             }
-            else
-            {
-                Console.Write("\n\n\tTOO MANY GUESSES!");
-                Console.Write($"\n\tYOU GUESSED {guessCounter} INCORRECT TIMES");
-                Console.Write($"\n\tTHE CORRECT NUMBER WAS {targetNumber}"); 
-            }
-            Console.WriteLine("\n==========================================================\n");
+            Console.WriteLine($"\t\tGames played:\t{gamesPlayed}");
+            Console.WriteLine($"\t\tGames won:\t{gamesWon}");
         }
     }
 }
