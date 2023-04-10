@@ -10,6 +10,7 @@
         {
             int gamesPlayed = 0;
             int gamesWon = 0;
+            int totalGuesses = 0;
             bool playAgain = true;
 
             while (playAgain)
@@ -34,7 +35,7 @@
 
                 while (guessCounter < ALLOWED_GUESSES)
                 {
-                    Console.Write($"\n\tGuess a number: ");
+                    Console.Write($"\n\t{guessCounter + 1}) Guess a number: ");
                     string guessedNumberInput = Console.ReadLine();
 
                     // Validate user input
@@ -42,7 +43,7 @@
                     bool guessedNumberValidation = int.TryParse(guessedNumberInput, out guessedNumber);
                     if ((guessedNumber < MIN_TARGET) || (guessedNumber > MAX_TARGET) || !guessedNumberValidation)
                     {
-                        Console.WriteLine($"\t\tEnter an interger between {MIN_TARGET} and {MAX_TARGET} - Try again!");
+                        Console.WriteLine($"\t\t{guessCounter + 1}) Enter an interger between {MIN_TARGET} and {MAX_TARGET} - Try again!");
                         continue;
                     }
 
@@ -77,12 +78,14 @@
                     Console.Write($"\n\tYOU GUESSED {targetNumber} CORRECTLY");
                     Console.Write($"\n\tTAKING ONLY {guessCounter} GUESSES");
                     gamesWon++;
+                    totalGuesses += guessCounter;
                 }
                 else
                 {
                     Console.Write("\n\n\tTOO MANY GUESSES!");
                     Console.Write($"\n\tYOU GUESSED {guessCounter} INCORRECT TIMES");
                     Console.Write($"\n\tTHE CORRECT NUMBER WAS {targetNumber}");
+                    totalGuesses += guessCounter;
                 }
                 Console.WriteLine("\n==========================================================\n");
 
@@ -107,8 +110,13 @@
                     playAgain = false;
                 }
             }
-            Console.WriteLine($"\t\tGames played:\t{gamesPlayed}");
-            Console.WriteLine($"\t\tGames won:\t{gamesWon}");
+
+            Console.Clear();
+            Console.WriteLine("\t\t\tTHANKS FOR PLAYING");
+            Console.WriteLine($"\n\tSession data for {gamesPlayed} games(s) played...");
+            Console.WriteLine($"\t\tGuesses:\t{totalGuesses}");
+            Console.WriteLine($"\t\tGames Won:\t{gamesWon}");
+            Console.WriteLine("\n==========================================================\n");
         }
     }
 }
